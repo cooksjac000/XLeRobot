@@ -215,6 +215,7 @@ class XLerobotClient(Robot):
             if cam_name not in self._cameras_ft:
                 continue
             frame = self._decode_image_from_b64(image_b64)
+            print(cam_name)
             if frame is not None:
                 current_frames[cam_name] = frame
 
@@ -231,7 +232,7 @@ class XLerobotClient(Robot):
 
         # 1. Get the latest message string from the socket
         latest_message_str = self._poll_and_get_latest_message()
-
+        
         # 2. If no message, return cached data
         if latest_message_str is None:
             return self.last_frames, self.last_remote_state
