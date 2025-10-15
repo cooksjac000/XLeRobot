@@ -97,10 +97,8 @@ def main():
                 )
                 if ret:
                     last_observation[cam_key] = base64.b64encode(buffer).decode("utf-8")
-                    print(f"success observe: {cam_key}")
                 else:
                     last_observation[cam_key] = ""
-                    print(f"failed observe: {cam_key}")
 
             # Send the observation to the remote agent
             try:
