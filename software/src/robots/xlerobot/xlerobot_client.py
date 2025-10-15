@@ -215,7 +215,6 @@ class XLerobotClient(Robot):
             if cam_name not in self._cameras_ft:
                 continue
             frame = self._decode_image_from_b64(image_b64)
-            print(cam_name)
             if frame is not None:
                 current_frames[cam_name] = frame
 
