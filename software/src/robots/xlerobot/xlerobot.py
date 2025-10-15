@@ -23,7 +23,7 @@ from typing import Any
 import numpy as np
 
 from lerobot.cameras.utils import make_cameras_from_configs
-from lerobot.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
+from lerobot.utils.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
 from lerobot.motors import Motor, MotorCalibration, MotorNormMode
 from lerobot.motors.feetech import (
     FeetechMotorsBus,
@@ -495,10 +495,10 @@ class XLerobot(Robot):
 
         # Read actuators position for arm and vel for base
         start = time.perf_counter()
-        left_arm_pos = self.bus1.sync_read("Present_Position", self.left_arm_motors)
         right_arm_pos = self.bus2.sync_read("Present_Position", self.right_arm_motors)
-        head_pos = self.bus1.sync_read("Present_Position", self.head_motors)
-        base_wheel_vel = self.bus2.sync_read("Present_Velocity", self.base_motors)
+        left_arm_pos = self.bus1.sync_read("Present_Position", self.left_arm_motors, num_retry=10)
+        head_pos = self.bus1.sync_read("Present_Position", self.head_motors, num_retry=10)
+        base_wheel_vel = self.bus2.sync_read("Present_Velocity", self.base_motors, num_retry=10)
         
         base_vel = self._wheel_raw_to_body(
             base_wheel_vel["base_left_wheel"],
